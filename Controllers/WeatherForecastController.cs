@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace jsu_dueling_api.Controllers
+namespace DuelistApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]

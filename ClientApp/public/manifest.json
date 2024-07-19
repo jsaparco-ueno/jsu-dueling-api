@@ -1,6 +1,6 @@
 {
-  "short_name": "jsu_dueling_api",
-  "name": "jsu_dueling_api",
+  "short_name": "DuelistApi",
+  "name": "DuelistApi",
   "icons": [
     {
       "src": "favicon.ico",

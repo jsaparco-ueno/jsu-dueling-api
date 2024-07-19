@@ -1,8 +1,9 @@
+using System.Collections.Generic;
+
 namespace DuelistApi.Models
 {
   public abstract class Job
   {
-    public int Id { get; set; }
     public string Name { get; set; }
     public int HealthPoints { get; set; }
     public int Strength { get; set; }
@@ -11,5 +12,4 @@ namespace DuelistApi.Models
     public abstract int AttackModifier();
     public abstract int SpeedModifier();
   }
-
 }

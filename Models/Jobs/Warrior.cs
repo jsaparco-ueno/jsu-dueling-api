@@ -4,6 +4,14 @@ namespace DuelistApi.Models
 {
   public class Warrior : Job
   {
+    public Warrior()
+    {
+      Name = "Warrior";
+      HealthPoints = 20;
+      Strength = 10;
+      Dexterity = 5;
+      Intelligence = 5;
+    }
     // nah, set this in constructor dude
     //public override int Strength { get { return 10; } set {} }
 

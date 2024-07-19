@@ -7,7 +7,7 @@
     <IsPackable>false</IsPackable>
     <SpaRoot>ClientApp\</SpaRoot>
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-    <RootNamespace>jsu_dueling_api</RootNamespace>
+    <RootNamespace>DuelistApi</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

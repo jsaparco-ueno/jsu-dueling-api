@@ -1,6 +1,6 @@
 using System;
 
-namespace jsu_dueling_api
+namespace DuelistApi
 {
     public class WeatherForecast
     {
