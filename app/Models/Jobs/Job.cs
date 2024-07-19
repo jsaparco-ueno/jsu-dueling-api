@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace DuelistApi.Models
 {
   public abstract class Job
