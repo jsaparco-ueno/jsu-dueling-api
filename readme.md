@@ -57,6 +57,8 @@ Technical Assessment for Neo Financial | Senior Backend Developer | Justin Sapar
 - I missed some Character validators that I should add: Health not zero, attack modifier non-negative, speed modifier non-negative
 - we will want to test those validators
 - also, don't forget to remove unused references
+- I tightened up the battle loop. The challenge is how to avoid repeating code while keeping the ability to break the loop early since submethods can't break a caller's loop
+- So I simplified the logging to make things easier to read and work with
 
 #### 2024-07-19
 - Services should be a singleton that is added at startup.
@@ -84,12 +86,10 @@ Technical Assessment for Neo Financial | Senior Backend Developer | Justin Sapar
     - calculate attack
     - subtract HP for damage from fastest attack, then other attack
 
-
-
 #### 2024-07-18
 - `dotnet new react -o jsu-dueling-api` to create the new app. Has bootstrap for styling, React for frontend Single Page Application, C# for backend
 - Add models
-- I see that I need to add validation, will be doing that on the services/handleZr.
+- I see that I need to add validation, will be doing that on the services/handler.
 - Decided that attack and speed modifier are a Job class method. Attack and Speed modifier methods are abstract on the base Job class, where deriving Job classes like Warrior will implement the modifier methods.
 - documented a quirk: Convert.ToInt32 is used for calculating attack and speed modifiers. If the result is halfway between whole numbers, it is rounded to the even number
 - I need to get CharacterFactory working how I want. CharacterFactory takes a name and valid job, validates the name and job, and outputs a Character instance with Job being an instance of the chosen subclass.

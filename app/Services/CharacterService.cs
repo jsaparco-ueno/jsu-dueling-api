@@ -60,7 +60,7 @@ namespace DuelistApi.Services
     // Throws exception if name is not valid.
     public void ValidateName(string name)
     {
-      if (name == null)
+      if (name == "")
         throw new Exception("Name must be non-empty.");
 
       if (name.Length < 4 || name.Length > 15)
