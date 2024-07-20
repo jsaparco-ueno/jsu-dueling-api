@@ -11,18 +11,18 @@ namespace DuelistApi.Models
       Strength = 10;
       Dexterity = 5;
       Intelligence = 5;
+      AttackModifier = CalculateAttackModifier();
+      SpeedModifier = CalculateSpeedModifier();
     }
-    // nah, set this in constructor dude
-    //public override int Strength { get { return 10; } set {} }
 
     // rounded to the nearest 32-bit signed integer
     // If value is halfway between two whole numbers (e.g. 5.5), the even number is returned (e.g. 6)
-    public override int AttackModifier()
+    public override int CalculateAttackModifier()
     {
         return Convert.ToInt32((Strength * 0.8) + (Dexterity * 0.2));
     }
 
-    public override int SpeedModifier()
+    public override int CalculateSpeedModifier()
     {
         return Convert.ToInt32((Dexterity * 0.6) + (Intelligence * 0.2));
     }

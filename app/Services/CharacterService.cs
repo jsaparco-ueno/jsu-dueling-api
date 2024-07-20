@@ -73,6 +73,8 @@ namespace DuelistApi.Services
           break;
       }
 
+      character.CurrentHealthPoints = character.Job.HealthPoints;
+
       return character;
     }
 

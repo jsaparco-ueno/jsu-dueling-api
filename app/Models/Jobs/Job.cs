@@ -7,7 +7,9 @@ namespace DuelistApi.Models
     public int Strength { get; set; }
     public int Dexterity { get; set; }
     public int Intelligence { get; set; }
-    public abstract int AttackModifier();
-    public abstract int SpeedModifier();
+    public int AttackModifier { get; set; }
+    public int SpeedModifier { get; set; }
+    public abstract int CalculateAttackModifier();
+    public abstract int CalculateSpeedModifier();
   }
 }
