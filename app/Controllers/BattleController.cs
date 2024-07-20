@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using DuelistApi.Models;
 using DuelistApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,6 +9,11 @@ namespace DuelistApi.Controllers
   public class BattleController : ControllerBase
   {
     private readonly BattleService _battleService;
+
+    public BattleController(BattleService battleService)
+    {
+      _battleService = battleService;
+    }
 
     [HttpPost]
     [Route("[controller]")]
@@ -33,14 +37,14 @@ namespace DuelistApi.Controllers
   public class BattleRequest
   {
     [Required]
-    public int CharacterOneId { get; set; }
+    public string CharacterOneId { get; set; }
     [Required]
-    public int CharacterTwoId { get; set; }
+    public string CharacterTwoId { get; set; }
 
-    public BattleRequest(int one, int two)
+    public BattleRequest(string characterOneId, string characterTwoId)
     {
-      CharacterOneId = one;
-      CharacterTwoId = two;
+      CharacterOneId = characterOneId;
+      CharacterTwoId = characterTwoId;
     }
   }
 }

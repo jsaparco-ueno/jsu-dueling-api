@@ -47,6 +47,8 @@ Technical Assessment for Neo Financial | Senior Backend Developer | Justin Sapar
 
 ### Dev Journal
 
+#### 2024-07-20
+- curl -v -d '{\"CharacterOneId\":\"0\", \"CharacterTwoId\":\"1\"}' -H "Content-Type: application/json" https://localhost:5001/battle
 #### 2024-07-19
 - Services should be a singleton that is added at startup.
 - Names are hard to think of so I added a list of cool names that we can pick from when initializing the in-memory character list.
@@ -57,7 +59,7 @@ Technical Assessment for Neo Financial | Senior Backend Developer | Justin Sapar
 - I'll write tests for each API endpoint.
 - Getting POST endpoint working
 - To create a new character:
-  - curl -v -d '{\"Name\":\"Jones\", \"Job\":\"warrior\"}' -H "Content-Type: application/json" https://localhost:5001/character/create
+  - curl -v -d '{\"Name\":\"Jones\", \"Job\":\"Warrior\"}' -H "Content-Type: application/json" https://localhost:5001/character/create
 - To get a character:
   - curl https://localhost:5001/character/0
 - got all CharacterController endpoints working and tested

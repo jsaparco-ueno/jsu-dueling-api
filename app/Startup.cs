@@ -22,6 +22,7 @@ namespace DuelistApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<CharacterService>();
+            services.AddSingleton<BattleService>();
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
