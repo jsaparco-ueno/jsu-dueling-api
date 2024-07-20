@@ -27,7 +27,8 @@ namespace DuelistApi.Services
       _characterService.ValidateCharacter(characterTwo);
       
       // battle loop, generating the log
-      string log = $"Battle between {characterOne.Name} ({characterOne.Job.Name}) - {characterOne.CurrentHealthPoints} HP and {characterTwo.Name} ({characterTwo.Job.Name}) - {characterTwo.CurrentHealthPoints} HP begins!\n";
+      // string log = $"Battle between {characterOne.Name} ({characterOne.Job.Name}) - {characterOne.CurrentHealthPoints} HP and {characterTwo.Name} ({characterTwo.Job.Name}) - {characterTwo.CurrentHealthPoints} HP begins!\n";
+      string log = BeginBattleMessage(characterOne, characterTwo);
       int round = 0;
       int speedRound = 0;
       bool speedDecision = false;
@@ -43,40 +44,42 @@ namespace DuelistApi.Services
           if (speedOne > speedTwo)
           {
             speedDecision = true;
-            log += $"{characterOne.Name} {speedOne} speed was faster than {characterTwo.Name} {speedTwo} speed and will begin this round.\n";
+            log += SpeedMessage(characterOne, speedOne, characterTwo, speedTwo);
+
             var damageOne = RollAndApplyDamage(characterOne, characterTwo);
-            log += $"{characterOne.Name} attacks {characterTwo.Name} for {damageOne} damage. {characterTwo.Name} has {characterTwo.CurrentHealthPoints} HP remaining.\n";
+            log += AttackMessage(characterOne, characterTwo, damageOne);
             if (characterTwo.CurrentHealthPoints == 0)
             {
-              log += $"{characterOne.Name} wins the battle! {characterOne.Name} still has {characterOne.CurrentHealthPoints} HP remaining!\n";
+              log += WinnerMessage(characterOne);
               break;
             }
 
             var damageTwo = RollAndApplyDamage(characterTwo, characterOne);
-            log += $"{characterTwo.Name} attacks {characterOne.Name} for {damageTwo} damage. {characterOne.Name} has {characterOne.CurrentHealthPoints} HP remaining.\n";
+            log += AttackMessage(characterTwo, characterOne, damageTwo);
             if(characterOne.CurrentHealthPoints == 0)
             {
-              log += $"{characterTwo.Name} wins the battle! {characterTwo.Name} still has {characterTwo.CurrentHealthPoints} HP remaining!\n";
+              log += WinnerMessage(characterTwo);
               break;
             }
           }
           else if (speedTwo > speedOne)
           {
             speedDecision = true;
-            log += $"{characterTwo.Name} {speedTwo} speed was faster than {characterOne.Name} {speedOne} speed and will begin this round.\n";
+            log += SpeedMessage(characterTwo,speedTwo, characterOne, speedOne);
+            
             var damageTwo = RollAndApplyDamage(characterTwo, characterOne);
-            log += $"{characterTwo.Name} attacks {characterOne.Name} for {damageTwo} damage. {characterOne.Name} has {characterOne.CurrentHealthPoints} HP remaining.\n";
+            log += AttackMessage(characterTwo,characterOne, damageTwo);
             if(characterOne.CurrentHealthPoints == 0)
             {
-              log += $"{characterTwo.Name} wins the battle! {characterTwo.Name} still has {characterTwo.CurrentHealthPoints} HP remaining!\n";
+              log += WinnerMessage(characterTwo);
               break;
             }
 
             var damageOne = RollAndApplyDamage(characterOne, characterTwo);
-            log += $"{characterOne.Name} attacks {characterTwo.Name} for {damageOne} damage. {characterTwo.Name} has {characterTwo.CurrentHealthPoints} HP remaining.\n";
+            log += AttackMessage(characterOne, characterTwo, damageOne);
             if (characterTwo.CurrentHealthPoints == 0)
             {
-              log += $"{characterOne.Name} wins the battle! {characterOne.Name} still has {characterOne.CurrentHealthPoints} HP remaining!\n";
+              log += WinnerMessage(characterOne);
               break;
             }
           }
@@ -94,7 +97,8 @@ namespace DuelistApi.Services
       return log;
     }
 
-    int RollAndApplyDamage(Character characterOne, Character characterTwo)
+    // Normally because only the BattleService uses these they would be private, but rolling with these character stats is fun. 
+    public int RollAndApplyDamage(Character characterOne, Character characterTwo)
     {
         var damageOne = Roll(characterOne.Job.AttackModifier);
         characterTwo.CurrentHealthPoints -= damageOne;
@@ -109,6 +113,25 @@ namespace DuelistApi.Services
     public int Roll(int max)
     {
       return _randomNumber.Next(0, max);
+    }
+
+    private string BeginBattleMessage(Character characterOne, Character characterTwo)
+    {
+      return $"Battle between {characterOne.Name} ({characterOne.Job.Name}) - {characterOne.CurrentHealthPoints} HP and {characterTwo.Name} ({characterTwo.Job.Name}) - {characterTwo.CurrentHealthPoints} HP begins!\n";
+    }
+    private string SpeedMessage(Character faster, int fasterSpeed, Character slower, int slowerSpeed)
+    {
+      return $"{faster.Name} {fasterSpeed} speed was faster than {slower.Name} {slowerSpeed} speed and will begin this round.\n";
+    }
+
+    private string AttackMessage(Character attacker, Character defender, int damage)
+    {
+      return $"{attacker.Name} attacks {defender.Name} for {damage} damage. {defender.Name} has {defender.CurrentHealthPoints} HP remaining.\n";
+    }
+
+    private string WinnerMessage(Character winner)
+    {
+     return $"{winner.Name} wins the battle! {winner.Name} still has {winner.CurrentHealthPoints} HP remaining!\n";
     }
   }
 }

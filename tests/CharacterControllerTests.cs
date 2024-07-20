@@ -18,6 +18,13 @@ public class CharacterControllerTests
   }
 
   [Fact]
+  public void GetAll_ReturnsListOfCharacters()
+  {
+    var result = _characterController.Get();
+    Assert.IsType<List<Character>>(result);
+  }
+
+  [Fact]
   public void GetById_ReturnsSingleCharacter()
   {
     var result = _characterController.Get(0);
@@ -30,13 +37,6 @@ public class CharacterControllerTests
   {
     var result = _characterController.Get(777);
     Assert.Equal(GetStatusCode(result), HttpStatusCode.BadRequest);
-  }
-
-  [Fact]
-  public void GetAll_ReturnsListOfCharacters()
-  {
-    var result = _characterController.Get();
-    Assert.IsType<List<Character>>(result);
   }
 
   [Fact]

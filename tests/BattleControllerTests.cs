@@ -1,6 +1,5 @@
 using System.Net;
 using DuelistApi.Services;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using DuelistApi.Controllers;
 
@@ -19,6 +18,8 @@ public class BattleControllerTests
     _battleController = new BattleController(_battleService);
   }
 
+  // Because this test uses seed data which is procedurally generated on startup, this test could flake.
+  // This applies to all of the tests that use the seed data, but I wanted to point it out here.
   [Fact]
   public void Battle_ReturnsLog()
   {
@@ -26,6 +27,9 @@ public class BattleControllerTests
     var response = _battleController.Battle(request);
 
     Assert.Equal(TestHelpers.GetStatusCode(response), HttpStatusCode.OK);
-    Assert.IsType<string>((response as OkObjectResult).Value);
+    var battleLog = (response as OkObjectResult).Value;
+    Assert.IsType<string>(battleLog);
+    Assert.Contains("begins!", (string)battleLog);
+    Assert.Contains("wins the battle!", (string)battleLog); 
   }
 }
