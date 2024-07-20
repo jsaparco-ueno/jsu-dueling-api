@@ -61,6 +61,19 @@ Technical Assessment for Neo Financial | Senior Backend Developer | Justin Sapar
 - To get a character:
   - curl https://localhost:5001/character/0
 - got all CharacterController endpoints working and tested
+- forgot to add a name length validator, just added it.
+- Create battle game loop
+  - validate:
+    - character.name is non-empty
+    - character.job.name is non-empty
+    - current HP is greater than 0 for both characters
+    - attack and speed modifier are >= 0
+  - while both characters have current HP > 0
+    - calculate speed (fastest speed attacks first)
+    - calculate attack
+    - subtract HP for damage from fastest attack, then other attack
+
+
 
 #### 2024-07-18
 - `dotnet new react -o jsu-dueling-api` to create the new app. Has bootstrap for styling, React for frontend Single Page Application, C# for backend

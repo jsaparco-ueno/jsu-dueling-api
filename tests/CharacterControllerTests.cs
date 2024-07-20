@@ -21,7 +21,15 @@ public class CharacterControllerTests
   public void GetById_ReturnsSingleCharacter()
   {
     var result = _characterController.Get(0);
-    Assert.IsType<Character>(result);
+    Assert.Equal(GetStatusCode(result), HttpStatusCode.OK);
+    Assert.IsType<Character>((result as OkObjectResult).Value);
+  }
+
+  [Fact]
+  public void GetById_ReturnsBadRequestIfIdNotFound()
+  {
+    var result = _characterController.Get(777);
+    Assert.Equal(GetStatusCode(result), HttpStatusCode.BadRequest);
   }
 
   [Fact]

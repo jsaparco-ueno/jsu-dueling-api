@@ -31,12 +31,14 @@ namespace DuelistApi.Services
 
     public Character Get(int id)
     {
+      validateCharacterId(id);
+
       return _characters[id];
     }
 
     /***
-     *  Throws exception if validation fails.
-     */
+      *  Throws exception if validation fails.
+      */
     public Character Create(string name, string job)
     {
       validateName(name);
@@ -146,13 +148,18 @@ namespace DuelistApi.Services
 
     }
 
+    // Validators
+    // ----------
+    
     // Throws exception if name is not valid.
     private void validateName(string name)
     {
       if (name == null)
         throw new Exception("Name must be non-empty.");
 
-      // There's a length requirement here, please add it *****************************************
+      if (name.Length < 4 || name.Length > 15)
+        throw new Exception("Name must be between 4 characters to 15 characters (inclusive).");
+
       var lowercase = Enumerable.Range('a', 'z'-'a'+1).Select(x => (char)x).ToList();
       var uppercase = Enumerable.Range('A', 'Z'-'A'+1).Select(x => (char)x).ToList();
       var specialCharacters = new List<char> { '_' };
@@ -166,7 +173,7 @@ namespace DuelistApi.Services
       {
         if (!validCharacters.Contains(c))
         {
-          throw new Exception($"Invalid name: {name}");
+          throw new Exception($"Invalid name: character '{c}' in name {name} is not allowed.  Names must contain letters and underscores.");
         }
       }
     } 
@@ -179,5 +186,13 @@ namespace DuelistApi.Services
         throw new Exception($"Invalid job: {job}");
       }
     }
+
+    // Throws exception if a character using the Id does not exist.
+    private void validateCharacterId(int id)
+    {
+      if (id >= _characters.Count)
+        throw new Exception($"Character with Id not found: {id}");
+    }
+
   }
 }

@@ -1,14 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net.Http;
 using DuelistApi.Models;
 using DuelistApi.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Diagnostics;
 
 namespace DuelistApi.Controllers
 {
@@ -32,9 +27,20 @@ namespace DuelistApi.Controllers
 
     [HttpGet]
     [Route("[controller]/get/{id}")]
-    public Character Get(int id)
+    public IActionResult Get(int id)
     {
-      return _characterService.Get(id);
+      try
+      {
+        var character = _characterService.Get(id);
+        
+        return Ok(character);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(new {
+          error = e.Message
+        });
+      }
     }
 
     [HttpPost]
