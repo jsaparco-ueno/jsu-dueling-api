@@ -17,7 +17,7 @@ Technical Assessment for Neo Financial | Senior Backend Developer | Justin Sapar
 - Get All 
   - `curl https://localhost:5001/character/get/`
 - Create 
-  - `curl -v -d '&#123;\"Name\":\"Jones\", \"Job\":\"Warrior\"&#125;' -H "Content-Type: application/json" https://localhost:5001/character/create`
+  - `curl -v -d '{\"Name\":\"Jones\", \"Job\":\"Warrior\"}' -H "Content-Type: application/json" https://localhost:5001/character/create`
 - Battle
   - `curl -v -d '{\"CharacterOneId\":\"0\", \"CharacterTwoId\":\"1\"}' -H "Content-Type: application/json" https://localhost:5001/battle`
 
