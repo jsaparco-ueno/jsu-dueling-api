@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using DuelistApi.Models;
 using DuelistApi.Services;
@@ -8,12 +9,25 @@ namespace DuelistApi.Controllers
   [ApiController]
   public class BattleController : ControllerBase
   {
-    // [HttpPost]
-    // [Route("[controller]")]
-    // public string Battle([FromBody] BattleRequest request)
-    // {
+    private readonly BattleService _battleService;
 
-    // }
+    [HttpPost]
+    [Route("[controller]")]
+    public IActionResult Battle([FromBody] BattleRequest request)
+    {
+      try
+      {
+        var battleLog = _battleService.Battle(request.CharacterOneId, request.CharacterTwoId);
+
+        return Ok(battleLog);
+      }
+      catch (Exception e)
+      {
+        return BadRequest(new {
+          error = e.Message
+        });
+      }
+    }
   }
 
   public class BattleRequest

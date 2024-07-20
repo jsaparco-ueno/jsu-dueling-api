@@ -20,7 +20,7 @@ namespace DuelistApi.Services
       // initialize character list with 7 characters
       for (int i = 0; i <= 7; i++)
       {
-        Save(Build(GetRandomName(), GetRandomJob()));
+        SaveNew(Build(GetRandomName(), GetRandomJob()));
       }
     }
 
@@ -31,7 +31,7 @@ namespace DuelistApi.Services
 
     public Character Get(int id)
     {
-      validateCharacterId(id);
+      ValidateCharacterId(id);
 
       return _characters[id];
     }
@@ -41,10 +41,71 @@ namespace DuelistApi.Services
       */
     public Character Create(string name, string job)
     {
-      validateName(name);
-      validateJob(job);
+      ValidateName(name);
+      ValidateJob(job);
 
-      return Save(Build(name,job));
+      return SaveNew(Build(name,job));
+    }
+
+    public Character Save(Character character)
+    {
+      _characters[character.Id] = character;
+
+      return character;
+    }
+
+    // Validators
+    // ----------
+
+    // Throws exception if name is not valid.
+    public void ValidateName(string name)
+    {
+      if (name == null)
+        throw new Exception("Name must be non-empty.");
+
+      if (name.Length < 4 || name.Length > 15)
+        throw new Exception("Name must be between 4 characters to 15 characters (inclusive).");
+
+      var lowercase = Enumerable.Range('a', 'z'-'a'+1).Select(x => (char)x).ToList();
+      var uppercase = Enumerable.Range('A', 'Z'-'A'+1).Select(x => (char)x).ToList();
+      var specialCharacters = new List<char> { '_' };
+
+      var validCharacters = new List<char>();
+      validCharacters.AddRange(lowercase);
+      validCharacters.AddRange(uppercase);
+      validCharacters.AddRange(specialCharacters);
+
+      foreach (char c in name)
+      {
+        if (!validCharacters.Contains(c))
+        {
+          throw new Exception($"Invalid name: character '{c}' in name {name} is not allowed.  Names must contain letters and underscores.");
+        }
+      }
+    } 
+
+    // Throws exception if job is not valid.
+    public void ValidateJob(string job)
+    {
+      if (_jobs.Contains(job) == false)
+      {
+        throw new Exception($"Invalid job: {job}");
+      }
+    }
+
+    // Throws exception if a character using the Id does not exist.
+    public void ValidateCharacterId(int id)
+    {
+      if (id >= _characters.Count)
+        throw new Exception($"Character with Id not found: {id}");
+    }
+
+    // Throws exception if a character is not valid.
+    public void ValidateCharacter(Character character)
+    {
+      ValidateCharacterId(character.Id);
+      ValidateName(character.Name);
+      ValidateJob(character.Job.Name);
     }
 
     // Private methods
@@ -80,7 +141,7 @@ namespace DuelistApi.Services
       return character;
     }
 
-    private Character Save(Character character)
+    private Character SaveNew(Character character)
     {
       // Calculates the next valid Id
       character.Id = _characters.Count;
@@ -147,52 +208,5 @@ namespace DuelistApi.Services
       return _jobs[randomInt.Next(0, _jobs.Count - 1)];
 
     }
-
-    // Validators
-    // ----------
-    
-    // Throws exception if name is not valid.
-    private void validateName(string name)
-    {
-      if (name == null)
-        throw new Exception("Name must be non-empty.");
-
-      if (name.Length < 4 || name.Length > 15)
-        throw new Exception("Name must be between 4 characters to 15 characters (inclusive).");
-
-      var lowercase = Enumerable.Range('a', 'z'-'a'+1).Select(x => (char)x).ToList();
-      var uppercase = Enumerable.Range('A', 'Z'-'A'+1).Select(x => (char)x).ToList();
-      var specialCharacters = new List<char> { '_' };
-
-      var validCharacters = new List<char>();
-      validCharacters.AddRange(lowercase);
-      validCharacters.AddRange(uppercase);
-      validCharacters.AddRange(specialCharacters);
-
-      foreach (char c in name)
-      {
-        if (!validCharacters.Contains(c))
-        {
-          throw new Exception($"Invalid name: character '{c}' in name {name} is not allowed.  Names must contain letters and underscores.");
-        }
-      }
-    } 
-
-    // Throws exception if job is not valid.
-    private void validateJob(string job)
-    {
-      if (_jobs.Contains(job) == false)
-      {
-        throw new Exception($"Invalid job: {job}");
-      }
-    }
-
-    // Throws exception if a character using the Id does not exist.
-    private void validateCharacterId(int id)
-    {
-      if (id >= _characters.Count)
-        throw new Exception($"Character with Id not found: {id}");
-    }
-
   }
 }
