@@ -16,6 +16,6 @@ public class BattleServiceTests
   [Fact]
   public void Battle_ReturnsLog()
   {
-    var log = _battleService.Battle("1","2");
+    var log = _battleService.Battle(1,2);
   }
 }

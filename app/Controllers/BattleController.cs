@@ -37,11 +37,11 @@ namespace DuelistApi.Controllers
   public class BattleRequest
   {
     [Required]
-    public string CharacterOneId { get; set; }
+    public int CharacterOneId { get; set; }
     [Required]
-    public string CharacterTwoId { get; set; }
+    public int CharacterTwoId { get; set; }
 
-    public BattleRequest(string characterOneId, string characterTwoId)
+    public BattleRequest(int characterOneId, int characterTwoId)
     {
       CharacterOneId = characterOneId;
       CharacterTwoId = characterTwoId;

@@ -22,7 +22,7 @@ public class BattleControllerTests
   [Fact]
   public void Battle_ReturnsLog()
   {
-    var request = new BattleRequest("1","2");
+    var request = new BattleRequest(1,2);
     var response = _battleController.Battle(request);
 
     Assert.Equal(TestHelpers.GetStatusCode(response), HttpStatusCode.OK);

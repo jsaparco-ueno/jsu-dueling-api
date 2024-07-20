@@ -48,7 +48,16 @@ Technical Assessment for Neo Financial | Senior Backend Developer | Justin Sapar
 ### Dev Journal
 
 #### 2024-07-20
-- curl -v -d '{\"CharacterOneId\":\"0\", \"CharacterTwoId\":\"1\"}' -H "Content-Type: application/json" https://localhost:5001/battle
+- To run a Battle and return the log:
+  - curl -v -d '{\"CharacterOneId\":\"0\", \"CharacterTwoId\":\"1\"}' -H "Content-Type: application/json" https://localhost:5001/battle
+- if param mapping is failing for weird reasons, e.g.: System.InvalidOperationException: Each parameter in constructor 'Void .ctor(System.String, System.String)' on type 'DuelistApi.Controllers.BattleRequest' must bind to an object property or field on deserialization. Each parameter name must match with a property or field on the object. The match can be case-insensitive.
+- The param names in the request object constructor must match the property names or else you get the above error
+- Yes, we deserialize the JSON from the request and try to form the [FromBody]<type> object. It's counting on having matching names.
+- what remains?  I should test methods in BattleService and check that I've covered CharacterService too.
+- I missed some Character validators that I should add: Health not zero, attack modifier non-negative, speed modifier non-negative
+- we will want to test those validators
+- also, don't forget to remove unused references
+
 #### 2024-07-19
 - Services should be a singleton that is added at startup.
 - Names are hard to think of so I added a list of cool names that we can pick from when initializing the in-memory character list.

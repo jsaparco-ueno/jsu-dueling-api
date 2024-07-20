@@ -15,10 +15,8 @@ namespace DuelistApi.Services
       _randomNumber = new Random();
     }
 
-    public string Battle(string stringIdOne, string stringIdTwo)
+    public string Battle(int characterIdOne, int characterIdTwo)
     {
-      var characterIdOne = GetIntId(stringIdOne);
-      var characterIdTwo = GetIntId(stringIdTwo);
       _characterService.ValidateCharacterId(characterIdOne);
       _characterService.ValidateCharacterId(characterIdTwo);
       // fetch characters
@@ -111,11 +109,6 @@ namespace DuelistApi.Services
     public int Roll(int max)
     {
       return _randomNumber.Next(0, max);
-    }
-
-    public int GetIntId(string id)
-    {
-      return int.Parse(id);
     }
   }
 }
