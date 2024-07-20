@@ -54,15 +54,15 @@ namespace DuelistApi.Services
 
       switch (job)
       {
-        case "warrior":
+        case "Warrior":
           character.Job = new Warrior();
           break;
         
-        case "thief":
+        case "Thief":
           character.Job = new Thief();
           break;
 
-        case "mage":
+        case "Mage":
           character.Job = new Mage();
           break;
 
@@ -126,9 +126,9 @@ namespace DuelistApi.Services
     // Refer to this list when we need the defacto list of valid jobs.
     private readonly List<string> _jobs = new()
     {
-      "warrior",
-      "thief",
-      "mage"
+      "Warrior",
+      "Thief",
+      "Mage"
     };
 
     private string GetRandomName()

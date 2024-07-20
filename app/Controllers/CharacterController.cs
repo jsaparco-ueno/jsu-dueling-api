@@ -63,5 +63,11 @@ namespace DuelistApi.Controllers
     public string Name { get; set;}
     [Required]
     public string Job { get; set; }
+
+    public CharacterRequest(string name, string job)
+    {
+      Name = name;
+      Job = job;
+    }
   }
 } 

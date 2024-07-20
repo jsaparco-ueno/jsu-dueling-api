@@ -60,12 +60,12 @@ Technical Assessment for Neo Financial | Senior Backend Developer | Justin Sapar
   - curl -v -d '{\"Name\":\"Jones\", \"Job\":\"warrior\"}' -H "Content-Type: application/json" https://localhost:5001/character/create
 - To get a character:
   - curl https://localhost:5001/character/0
-- got all endpoints working
+- got all CharacterController endpoints working and tested
 
 #### 2024-07-18
 - `dotnet new react -o jsu-dueling-api` to create the new app. Has bootstrap for styling, React for frontend Single Page Application, C# for backend
 - Add models
-- I see that I need to add validation, will be doing that on the services/handler.
+- I see that I need to add validation, will be doing that on the services/handleZr.
 - Decided that attack and speed modifier are a Job class method. Attack and Speed modifier methods are abstract on the base Job class, where deriving Job classes like Warrior will implement the modifier methods.
 - documented a quirk: Convert.ToInt32 is used for calculating attack and speed modifiers. If the result is halfway between whole numbers, it is rounded to the even number
 - I need to get CharacterFactory working how I want. CharacterFactory takes a name and valid job, validates the name and job, and outputs a Character instance with Job being an instance of the chosen subclass.
