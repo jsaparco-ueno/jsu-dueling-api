@@ -12,17 +12,19 @@ Technical Assessment for Neo Financial | Senior Backend Developer | Justin Sapar
 
 - Send requests to the API using curl statements from the terminal:
 
-- Get By Id. (On startup, the app is preseeded with 7 characters with Ids 0 through 6)
+- Get Character By Id. (On startup, the app is preseeded with 7 characters with Ids 0 through 6)
   - `curl https://localhost:5001/character/get/0`
-- Get All 
+- Get All Characters
   - `curl https://localhost:5001/character/get/`
-- Create 
-  - `curl -v -d '{\"Name\":\"Jones\", \"Job\":\"Warrior\"}' -H "Content-Type: application/json" https://localhost:5001/character/create`
+- Create Character
+  - `curl -d '{\"Name\":\"Jones\", \"Job\":\"Warrior\"}' -H "Content-Type: application/json" https://localhost:5001/character/create`
 - Battle
-  - `curl -v -d '{\"CharacterOneId\":\"0\", \"CharacterTwoId\":\"1\"}' -H "Content-Type: application/json" https://localhost:5001/battle`
+  - `curl -d '{\"CharacterOneId\":\"0\", \"CharacterTwoId\":\"1\"}' -H "Content-Type: application/json" https://localhost:5001/battle`
+-  Get All Jobs
+  - `curl https://localhost:5001/job/get/`
 
 ### Outline
-- This API will have the following parts:
+- This API has the following parts:
   - app: contains the frontend and backend
     - ClientApp: contains the frontend. This has been left to do later.
     - Models: contains class files each representing hierarchical objects in the namespace and their properties
@@ -36,6 +38,8 @@ Technical Assessment for Neo Financial | Senior Backend Developer | Justin Sapar
         - Handles character creation, validation, saving and loading.
       - BattleService
         - Handles calculations for battles and outputting the battle log.
+      - JobService
+        - Uses a factory pattern to build Job subclasses that implement the abstract base Job Class.
     - Controllers: contains the API routes and handlers. 
       - CharacterController
         - GetCharacters: retrieves list of all characters.
@@ -45,6 +49,8 @@ Technical Assessment for Neo Financial | Senior Backend Developer | Justin Sapar
         - Validators for Character and its properties.
       - BattleController
         - Battle: Given two character IDs, validates the inputs, and then pits the two characters against one another in a battle to the death. Saves the character statuses. Returns the battle log in response.
+      - JobController
+        - Get all Jobs
   - Tests: these should follow naming/folder conventions for the class and service files they target. There aren't many now, so I've left them in root, but if they become more numerous then we should add folders to match.
     - I've written these to test each endpoint in all controllers, and each method in all services. I didn't write tests for the private methods but it is left to do for later.
 
@@ -54,5 +60,6 @@ Technical Assessment for Neo Financial | Senior Backend Developer | Justin Sapar
 
 ### How-Tos
 - When adding a new job:
-  - add the lowercase name to the list of valid jobs in CharacterService.cs
-  - add a new job class to the Models/Jobs folder, inheriting from the base Job class.
+  - add the name to the list of valid jobs in JobService.cs GetJobNames
+  - add a case to the switch statement in JobService.cs to Build the new job
+  - add a new job class file to the Models/Jobs folder, inheriting from the base Job class.
