@@ -1,26 +1,27 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-
 using DuelistApi.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace DuelistApi.Services
 {
   public class CharacterService
   {
+    private JobService _jobService;
+
     // This is the in-memory list of characters. In a real application this would likely be stored in a database.
     private List<Character> _characters;
 
-    public CharacterService()
+    public CharacterService(JobService jobService)
     {
+      _jobService = jobService;
+
       _characters = new List<Character>();
 
       // initialize character list with 7 characters
       for (int i = 0; i <= 7; i++)
       {
-        SaveNew(Build(GetRandomName(), GetRandomJob()));
+        SaveNew(Build(GetRandomName(), _jobService.GetRandomJobName()));
       }
     }
 
@@ -52,6 +53,11 @@ namespace DuelistApi.Services
       _characters[character.Id] = character;
 
       return character;
+    }
+
+    public List<Job> GetAllJobs()
+    {
+      return _jobService.GetJobs();
     }
 
     // Validators
@@ -110,31 +116,13 @@ namespace DuelistApi.Services
 
     // Private methods
     // ---------------
-    private static Character Build(string name, string job)
+    private Character Build(string name, string job)
     {
-      var character = new Character();
-      character.Name = name;
-
-      switch (job)
+      var character = new Character
       {
-        case "Warrior":
-          character.Job = new Warrior();
-          break;
-        
-        case "Thief":
-          character.Job = new Thief();
-          break;
-
-        case "Mage":
-          character.Job = new Mage();
-          break;
-
-        default:
-          character = null;
-          // The entry was not a valid job! Do something!
-          Console.WriteLine($"Invalid job: {job}");
-          break;
-      }
+          Name = name,
+          Job = _jobService.Build(job)
+      };
 
       character.CurrentHealthPoints = character.Job.HealthPoints;
 
@@ -200,13 +188,6 @@ namespace DuelistApi.Services
     {
       var randomInt = new Random();
       return _names[randomInt.Next(0, _names.Count - 1)];
-    }
-
-    private string GetRandomJob()
-    {
-      var randomInt = new Random();
-      return _jobs[randomInt.Next(0, _jobs.Count - 1)];
-
     }
   }
 }

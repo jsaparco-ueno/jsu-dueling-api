@@ -1,20 +1,21 @@
 using DuelistApi.Models;
 using DuelistApi.Services;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 
 namespace DuelistApi.Tests;
 
 public class CharacterServiceTests
 {
+  JobService _jobService;
   CharacterService _characterService;
   public CharacterServiceTests()
   {
-    _characterService = new CharacterService();
+    _jobService = new JobService();
+    _characterService = new CharacterService(_jobService);
   }
   [Fact]
   public void Constructor_InitializesCharacterList()
   {
-    CharacterService testCharacterService = new CharacterService();
+    CharacterService testCharacterService = new CharacterService(_jobService);
     var characters = testCharacterService.GetCharacters();
 
     Assert.IsType<List<Character>>(characters);

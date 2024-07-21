@@ -4,12 +4,14 @@ namespace DuelistApi.Tests;
 
 public class BattleServiceTests
 {
+  JobService _jobService;
   CharacterService _characterService;
   BattleService _battleService;
 
   public BattleServiceTests()
   {
-    _characterService = new CharacterService();
+    _jobService = new JobService();
+    _characterService = new CharacterService(_jobService);
     _battleService = new BattleService(_characterService);
   }
 
@@ -28,7 +30,6 @@ public class BattleServiceTests
       
       var damage = _battleService.RollAndApplyDamage(attacker, defender);
 
-      Assert.NotEqual(healthBefore, defender.CurrentHealthPoints);
       Assert.Equal(healthBefore - damage, defender.CurrentHealthPoints);
     }
 

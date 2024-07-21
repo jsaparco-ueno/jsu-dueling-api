@@ -2,18 +2,21 @@ using System.Net;
 using DuelistApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using DuelistApi.Controllers;
+using DuelistApi.Models;
 
 namespace DuelistApi.Tests;
 
 public class BattleControllerTests
 {
+  JobService _jobService;
   CharacterService _characterService;
   BattleService _battleService;
   BattleController _battleController;
 
   public BattleControllerTests()
   {
-    _characterService = new CharacterService();
+    _jobService = new JobService();
+    _characterService = new CharacterService(_jobService);
     _battleService = new BattleService(_characterService);
     _battleController = new BattleController(_battleService);
   }

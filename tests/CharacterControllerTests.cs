@@ -8,12 +8,14 @@ namespace DuelistApi.Tests;
 
 public class CharacterControllerTests
 {
+  JobService _jobService;
   CharacterService _characterService;
   CharacterController _characterController;
 
   public CharacterControllerTests()
   {
-    _characterService = new CharacterService();
+    _jobService = new JobService();
+    _characterService = new CharacterService(_jobService);
     _characterController = new CharacterController(_characterService);
   }
 
