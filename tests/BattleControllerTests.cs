@@ -2,7 +2,6 @@ using System.Net;
 using DuelistApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using DuelistApi.Controllers;
-using DuelistApi.Models;
 
 namespace DuelistApi.Tests;
 

@@ -30,7 +30,7 @@ public class CharacterControllerTests
   public void GetById_ReturnsSingleCharacter()
   {
     var result = _characterController.Get(0);
-    Assert.Equal(GetStatusCode(result), HttpStatusCode.OK);
+    Assert.Equal(TestHelpers.GetStatusCode(result), HttpStatusCode.OK);
     Assert.IsType<Character>((result as OkObjectResult).Value);
   }
 
@@ -38,7 +38,7 @@ public class CharacterControllerTests
   public void GetById_ReturnsBadRequestIfIdNotFound()
   {
     var result = _characterController.Get(777);
-    Assert.Equal(GetStatusCode(result), HttpStatusCode.BadRequest);
+    Assert.Equal(TestHelpers.GetStatusCode(result), HttpStatusCode.BadRequest);
   }
 
   [Fact]
@@ -71,7 +71,7 @@ public class CharacterControllerTests
     var newList = _characterService.GetCharacters();
 
     Assert.Equal(oldList, newList);
-    Assert.Equal(GetStatusCode(response), HttpStatusCode.BadRequest);
+    Assert.Equal(TestHelpers.GetStatusCode(response), HttpStatusCode.BadRequest);
   }
 
   [Fact]
@@ -86,7 +86,7 @@ public class CharacterControllerTests
     var newList = _characterService.GetCharacters();
 
     Assert.Equal(oldList, newList);
-    Assert.Equal(GetStatusCode(response), HttpStatusCode.BadRequest);
+    Assert.Equal(TestHelpers.GetStatusCode(response), HttpStatusCode.BadRequest);
   }
 
   [Fact]
@@ -100,7 +100,7 @@ public class CharacterControllerTests
     var newList = _characterService.GetCharacters();
 
     Assert.Equal(oldList, newList);
-    Assert.Equal(GetStatusCode(response), HttpStatusCode.BadRequest);
+    Assert.Equal(TestHelpers.GetStatusCode(response), HttpStatusCode.BadRequest);
   }
 
   [Fact]
@@ -114,17 +114,6 @@ public class CharacterControllerTests
     var newList = _characterService.GetCharacters();
 
     Assert.Equal(oldList, newList);
-    Assert.Equal(GetStatusCode(response), HttpStatusCode.BadRequest);
-  }
-
-
-  // Helpers
-  // -------
-
-  public static HttpStatusCode? GetStatusCode(IActionResult response)
-  {
-    if (response == null) return null;
-
-    return (HttpStatusCode)response.GetType().GetProperty("StatusCode").GetValue(response, null);
+    Assert.Equal(TestHelpers.GetStatusCode(response), HttpStatusCode.BadRequest);
   }
 }

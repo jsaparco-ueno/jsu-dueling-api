@@ -1,4 +1,3 @@
-using DuelistApi.Controllers;
 using DuelistApi.Models;
 using DuelistApi.Services;
 
@@ -7,8 +6,6 @@ namespace DuelistApi.Tests;
 public class JobServiceTests
 {
   JobService _jobService;
-  CharacterService _characterService;
-  JobController _jobController;
 
   public JobServiceTests()
   {

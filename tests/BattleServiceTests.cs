@@ -19,6 +19,8 @@ public class BattleServiceTests
   public void Battle_ReturnsLog()
   {
     var log = _battleService.Battle(1,2);
+
+    Assert.NotEmpty(log);
   }
 
   [Fact]
