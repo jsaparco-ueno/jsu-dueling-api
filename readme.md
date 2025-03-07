@@ -1,5 +1,5 @@
 ### Dueling API
-Technical Assessment for Neo Financial | Senior Backend Developer | Justin Saparco-Ueno
+Technical Assessment | Senior Backend Developer | Justin Saparco-Ueno
 ***
 
 ### Getting Started
